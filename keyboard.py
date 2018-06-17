@@ -6,7 +6,6 @@ from math import ceil
 
 class Application(tk.Frame):
     ALPHAS = ('abcde', 'fghij', 'klmno', 'pqrst', 'uvxy ')
-    
     BUTTONS = {
         ' ' : 0,
         'y' : 1,
@@ -14,14 +13,11 @@ class Application(tk.Frame):
         'i' : 3,
         'l' : 4,
         't' : 5,
-        
         }
     
     def createWidgets(self):
         self.display = tk.Label(self, font=("Courier", 35))
         self.display.pack({'side': 'top'})
-        
-        
         self.buttons = list()
         for group in self.ALPHAS:
             self.buttons.append(tk.Label(self, font=("Courier", 35)))
@@ -29,7 +25,6 @@ class Application(tk.Frame):
         
         for button in self.buttons:
             button.pack({'side' : 'left'})
-            #~ button.pack({'side' : 'top'})
 
     def __init__(self, master=None):
         super(Application, self).__init__(master)
@@ -37,17 +32,14 @@ class Application(tk.Frame):
         self.createEvent()
         self.createWidgets()
         self.accum = ''
-        self.series=None
+        self.series = None
 
     def createEvent(self):
         self.master.bind("<Key>", self.key)
 
     def standard_alpha(self):
         for j, button in enumerate(self.buttons):
-            #~ button['text'] = '  ' + '  \n  '.join(self.ALPHAS[j]) + '  '
             button['text'] = '  ' + ''.join(self.ALPHAS[j].upper()) + '  '
-            #~ button['text'] = '  ' + '    '.join(self.ALPHAS[j]) + '  '
-
 
     def key(self, event):
         if event.char in self.BUTTONS.keys():
@@ -59,16 +51,11 @@ class Application(tk.Frame):
                 else:
                     self.series=None
                     self.standard_alpha()
-                
             else:
                 if self.series is None :
                     self.series=self.ALPHAS[i]
                     for j, button in enumerate(self.buttons):
-                        button['text'] = '  %s  ' % self.series[j]
-                    
-                    #~ self.buttons[0]['text'] = ''.join(['  %s  ' % j for j in self.series])
-                    #~ for button in self.buttons[1:]:
-                        #~ button['text'] = ''
+                        button['text'] = '  %s  ' % self.series[j].upper()
                 else:
                     self.accum += self.series[i]
                     self.display['text'] = self.accum
