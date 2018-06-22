@@ -5,7 +5,9 @@ from math import ceil
 
 
 class Application(tk.Frame):
-    ALPHAS = ('abcde', 'fghij', 'klmno', 'pqrst', 'uvxy ')
+    DOIGTS = ('Pouce', 'Index', 'Majeur', 'Annul.', 'Auri.')
+    ALPHAS = ('abcde', 'fghij', 'klmno', 'pqrst', 'uvxy_')
+    ALPHAS2 = ('wz!?.', '01234', '56789', '><=+-', '():,_')
     BUTTONS = {
         ' ' : 0,
         'y' : 1,
@@ -13,14 +15,16 @@ class Application(tk.Frame):
         'i' : 3,
         'l' : 4,
         't' : 5,
+        'g' : 6,
         }
+    FONTSIZE=40
     
     def createWidgets(self):
-        self.display = tk.Label(self, font=("Courier", 35))
+        self.display = tk.Label(self, font=("Courier", self.FONTSIZE))
         self.display.pack({'side': 'top'})
         self.buttons = list()
         for group in self.ALPHAS:
-            self.buttons.append(tk.Label(self, font=("Courier", 35)))
+            self.buttons.append(tk.Label(self, font=("Courier", self.FONTSIZE)))
         self.standard_alpha()
         
         for button in self.buttons:
@@ -44,7 +48,11 @@ class Application(tk.Frame):
     def key(self, event):
         if event.char in self.BUTTONS.keys():
             i = self.BUTTONS[event.char]
-            if i == 5:
+            if i == 6:
+                self.ALPHAS, self.ALPHAS2 = self.ALPHAS2, self.ALPHAS
+                self.series=None
+                self.standard_alpha()
+            elif i == 5:
                 if self.series is None:
                     self.accum = self.accum[:-1]
                     self.display['text'] = self.accum
@@ -57,7 +65,7 @@ class Application(tk.Frame):
                     for j, button in enumerate(self.buttons):
                         button['text'] = '  %s  ' % self.series[j].upper()
                 else:
-                    self.accum += self.series[i]
+                    self.accum += self.series[i].replace('_', ' ')
                     self.display['text'] = self.accum
                     self.series=None
                     self.standard_alpha()
