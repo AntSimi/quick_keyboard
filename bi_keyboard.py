@@ -4,7 +4,7 @@ import tkinter as tk
 
 class Application(tk.Frame):
     # ~ ALPHAS = ('abcde', 'fghij', 'klmno', 'pqrst', 'uvxy_')
-    ALPHAS = ('ea_nrcv', 'jilphw', 'sudgk', 'tmbz', 'ofx', 'qy')
+    ALPHAS = ('ea_nrcv', 'jilphw', 'sudgk', 'tmbz', 'ofx', 'qy', '?')
     BUTTONS = {
         'u' : 0,
         'i' : 1,
